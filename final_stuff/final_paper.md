@@ -61,3 +61,29 @@ TPM quantifies gene expression as the proportion of transcripts attributed to a 
 ![TPM Formula](figure4.png)
 
 Figure 4: TPM calculation formula.
+
+## RNA-Seq Differential Expression Analysis
+
+### Uses of differential expression
+
+In certain situations, it can be useful to compare quantified gene expression using RNA-Seq between samples; for instance:
+- **Identifying Disease Mechanisms**: By analyzing gene expression with respect to diseases and infections, we can figure out what pathways they use and possible treatments.
+- **Drug Development and Testing**: By figuring out what genes drugs affect the expression of, we can better understand them and develop new ones.
+- **Cancer Gene Identification**: By identifying genes that are expressed differently in cancer cells, we can create better treatments.
+- **Gene Regulation Research**: Knowing which genes regulate others can be helpful in developing treatments and technologies that make use of the natural mechanisms of the genome.
+
+### DESeq2 for differential expression
+
+There are many different tools that can be used to perform differential expression analysis, but the one we'll be explaining is [**DESeq2**](https://bioconductor.org/packages/release/bioc/html/DESeq2.html).
+
+### DESeq2 pipeline
+<Steps for using DESEq2>
+
+### DESeq2 example output
+<example output and link to dataset, maybe from a paper?>
+
+### The magic behind DESeq2
+<Explanation of statistics behind DESeq2>
+
+### DESeq2 vs Cuffdiff
+
