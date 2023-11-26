@@ -88,24 +88,45 @@ TPM is typically the preferred measure of gene expression for differential expre
 
 ### So, why differential expression?
 
-In certain situations, it can be useful to compare quantified gene expression using RNA-Seq between samples; for instance:
+In many situations, it can be useful to compare quantified gene expression using RNA-Seq between samples; for instance:
 - **Identifying Disease Mechanisms**: By analyzing gene expression with respect to diseases and infections, we can figure out what pathways they use and possible treatments.
 - **Drug Development and Testing**: By figuring out what genes drugs affect the expression of, we can better understand them and develop new ones.
 - **Cancer Gene Identification**: By identifying genes that are expressed differently in cancer cells, we can create better treatments.
 - **Gene Regulation Research**: Knowing which genes regulate others can be helpful in developing treatments and technologies that make use of the natural mechanisms of the genome.
+- **More!** Given that gene expression is such a fundamental part of biology, there are plenty of use cases for differential expression analysis other than what was mentioned above.
 
 ### DESeq2 for differential expression
 
-There are many different tools that can be used to perform differential expression analysis, but the one we'll be explaining is [**DESeq2**](https://bioconductor.org/packages/release/bioc/html/DESeq2.html).
+There are many different tools that can be used to perform differential expression analysis, but the one we'll be explaining is [**DESeq2**](https://bioconductor.org/packages/release/bioc/html/DESeq2.html). DESeq2 is an R package that can be used to compare RNA-Seq expression data between samples, and is used for its ability to process high-throughput data.
 
-### DESeq2 pipeline
-<Steps for using DESEq2>
+### The magic statistics behind DESeq2
 
-### DESeq2 example output
-<example output and link to dataset, maybe from a paper?>
+The [DESeq2 Paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8) goes into detail about the various statistical techniques it uses to perform differential expression analysis, the most notable of which are:
 
-### The magic behind DESeq2
-<Explanation of statistics behind DESeq2>
+#### Normalization
+Before performing analysis, DESeq2 performs a specific type of normalization (size factor normalization) to account for differences in library sizes and sequencing depth across samples.
+
+#### Negative binnomial distribution
+First and foremost, DESeq2 models the distribution of expression counts as a **negative binomial distribution**. This helps account for the variability which can be sene in count data, and also helps to handle the overdispersion that is often present in RNA-Seq data. In other words, the variance in high-throughput RNA-Seq data is typically larger than we'd expect for the typically-used Poission distribution, so the negative binomial is a more accurate model via its dispersion parameter. Genes with higher expression levels tend to have higher variability between samples, and we ideally want to control for this. DESeq2 accomplishes this by using the dispersion parameter of the negative binomial distribution; this is called the **mean-variance relationship**.
+
+#### Independent Filtering
+In addition, DESeq2 applies a heuristic to filter out genes with low counts that are unlikely to be differentially expressed, which helps increase the statistical power and thus accuracy of its output.
+
+Modeling the relationship is necessary because genes with higher expression levels tend to have higher variability between replicates. Ignoring this mean-variance relationship could lead to incorrect statistical tests. By explicitly including the dispersion parameter αi, DESeq2 is able to properly account for heteroscedasticity in the count data based on expression level.
+
+#### Empirical Bayes Shrinking
+Additionally, DESeq2 uses a technique called **empirical bayes shrinking** to estimate dispersion and fold changes. It treats each gene separately and estimates dispersion per-gene, and then fits these dispersions on a smooth curve. These estimates are then "shrinked" along the curve towards the values predicted by the curve, which gives us the final dispersion values.
+
+A simpler way of explaining empirical bayes shrinking is that we're accounting for a smaller sample size by using a larger set of "prior knowledge", which makes our final result more accurate. In the case of DESeq2, we're estimating the dispersion for each gene individually, and then using a model of the dispersion based off of the *entire* sample as our "prior knowledge" to more accurately "shrink" the individual dispersions towards more accurately estimated values.
+
+#### Wald Test
+DESeq2 uses a statistical test called the **Wald test** to calculate the P-values and make the final call as to whether a gene is statistically likely to be differentially expressed between two samples. The Wald test calculates a "coefficient of interest" from the data, and then divides this by the standard error. This is then tested on an approximately normal distribution to calculate the P-value.
+
+#### P-value adjustment
+DESeq2 can help lower the false discovery rate (FDR) by using the Benjamini-Hochberg procedure. This involves first sorting all of the p-values in ascending order. Then, each p-value is compared with its Benjamini-Hochberg critical vlaue, which is the rank of the value in the sorted list divided by the number of p-values, times a user-defined acceptable false positive rate. Then, all p-values less than the critical value are discarded.
+
+#### So...
+Pretty neat, huh? All of this statistical magic thrown together makes DESeq2 one of the most popular tools for performing differential expression analysis. However, it's not the only tool on the block - we'll also take a brief look at another tool for differential expression analysis, called `cuffdiff`.
 
 ### DESeq2 vs Cuffdiff
 
