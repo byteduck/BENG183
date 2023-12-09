@@ -18,6 +18,10 @@ RNA-seq is a high-throughput sequencing technique that involves the following ke
 
 5. **Data Analysis**: The sequenced reads are processed to infer gene expression levels and identify differentially expressed genes.
 
+![RNA-Seq Process](rnaseq.png)
+
+*An overview of the RNA-Seq pipeline [[3]](https://genomemedicine.biomedcentral.com/articles/10.1186/s13073-017-0467-4#Fig1)*
+
 ### RNA-seq Pipeline
 
 Here is a basic overview of the tools used in the pipeline for RNA-Seq differential expression analysis:
@@ -97,11 +101,11 @@ In many situations, it can be useful to compare quantified gene expression using
 
 ### DESeq2 for differential expression
 
-There are many different tools that can be used to perform differential expression analysis, but the one we'll be explaining is [**DESeq2**](https://bioconductor.org/packages/release/bioc/html/DESeq2.html). DESeq2 is an R package that can be used to compare RNA-Seq expression data between samples, and is used for its ability to process high-throughput data.
+There are many different tools that can be used to perform differential expression analysis, but the one we'll be explaining is [**DESeq2**](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) [1]. DESeq2 is an R package that can be used to compare RNA-Seq expression data between samples, and is used for its ability to process high-throughput data.
 
 ### The magic statistics behind DESeq2
 
-The [DESeq2 Paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8) goes into detail about the various statistical techniques it uses to perform differential expression analysis, the most notable of which are:
+The [DESeq2 Paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8) [2] goes into detail about the various statistical techniques it uses to perform differential expression analysis, the most notable of which are:
 
 #### Normalization
 Before performing analysis, DESeq2 performs a specific type of normalization (size factor normalization) to account for differences in library sizes and sequencing depth across samples.
@@ -130,3 +134,7 @@ Pretty neat, huh? All of this statistical magic thrown together makes DESeq2 one
 
 ### DESeq2 vs Cuffdiff
 
+## Works Cited
+1. **DESeq2 - Bioconductor** https://bioconductor.org/packages/release/bioc/html/DESeq2.html
+2. Love, M.I., Huber, W. & Anders, S. **Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2**. Genome Biol 15, 550 (2014). https://doi.org/10.1186/s13059-014-0550-8
+3. Haque, A., Engel, J., Teichmann, S.A. et al. **A practical guide to single-cell RNA-sequencing for biomedical research and clinical applications**. Genome Med 9, 75 (2017). https://doi.org/10.1186/s13073-017-0467-4
