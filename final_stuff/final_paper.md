@@ -8,7 +8,7 @@ Understanding gene expression is crucial for unraveling the molecular mechanisms
 
 ### Principle
 
-RNA-seq is a high-throughput sequencing technique that involves the following key steps:
+RNA-seq involves the following key steps:
 
 1. **RNA Extraction**: Total RNA is isolated from a sample of interest, which can be cells, tissues, or even single cells.
 
@@ -133,8 +133,14 @@ DESeq2 can help lower the false discovery rate (FDR) by using the Benjamini-Hoch
 Pretty neat, huh? All of this statistical magic thrown together makes DESeq2 one of the most popular tools for performing differential expression analysis. However, it's not the only tool on the block - we'll also take a brief look at another tool for differential expression analysis, called `cuffdiff`.
 
 ### DESeq2 vs Cuffdiff
+While both can be used to perform differential expression analysis, they do have different methodologies, which makes them suitable for different types of experiments. While DESeq2 performs gene-level analysis, Cuffdiff performs transcript-level analysis. The reason Cuffdiff is able to perform transcript-level analysis is because of the package it is part of, Cufflinks. Cufflinks aligns the reads into transcripts, allowing for transcript-level analysis. The key difference between gene-level and transcript-level analysis lies in the level of granularity. Gene-level analysis provides an overview of the entire gene's expression, while transcript-level analysis splits gene expression into all types of transcript isoforms. 
+
+For example, to perform alternative splicing analysis, Cuffdiff would be the appropriate tool to use since each RNA isoform corresponds to a unique combination of exons, and you want to know if specific isoforms are upregulated or downregulated. On the other hand, DESeq2 wouldn't be the appropriate tool here since all the RNA isoforms would be considered as the same gene, hiding the information on the specific isoform expressions.
 
 ## Works Cited
 1. **DESeq2 - Bioconductor** https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 2. Love, M.I., Huber, W. & Anders, S. **Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2**. Genome Biol 15, 550 (2014). https://doi.org/10.1186/s13059-014-0550-8
 3. Haque, A., Engel, J., Teichmann, S.A. et al. **A practical guide to single-cell RNA-sequencing for biomedical research and clinical applications**. Genome Med 9, 75 (2017). https://doi.org/10.1186/s13073-017-0467-4
+4. Seyednasrollah F, Laiho A, Elo LL. Comparison of software packages for detecting differential expression in RNA-seq studies. Brief Bioinform. 2015 Jan;16(1):59-70. doi: 10.1093/bib/bbt086. Epub 2013 Dec 2. PMID: 24300110; PMCID: PMC4293378.
+5. Trapnell C, Roberts A, Goff L, Pertea G, Kim D, Kelley DR, Pimentel H, Salzberg SL, Rinn JL, Pachter L. Differential gene and transcript expression analysis of RNA-seq experiments with TopHat and Cufflinks. Nat Protoc. 2012 Mar 1;7(3):562-78. doi: 10.1038/nprot.2012.016. Erratum in: Nat Protoc. 2014 Oct;9(10):2513. PMID: 22383036; PMCID: PMC3334321.
+
