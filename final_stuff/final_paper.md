@@ -132,15 +132,20 @@ DESeq2 can help lower the false discovery rate (FDR) by using the Benjamini-Hoch
 #### So...
 Pretty neat, huh? All of this statistical magic thrown together makes DESeq2 one of the most popular tools for performing differential expression analysis. However, it's not the only tool on the block - we'll also take a brief look at another tool for differential expression analysis, called `cuffdiff`.
 
-### DESeq2 vs Cuffdiff
-While both can be used to perform differential expression analysis, they do have different methodologies, which makes them suitable for different types of experiments. DESeq2 primarily conducts gene-level analysis, while Cuffdiff specializes in transcript-level analysis. The capability of Cuffdiff to perform transcript-level analysis is attributed to its integration with the Cufflinks package, which first aligns the reads into transcripts, facilitating detailed investigation at the transcript level. The key difference between gene-level and transcript-level analysis lies in the level of granularity. Gene-level analysis provides an overview of the entire gene's expression, while transcript-level analysis splits gene expression into all types of transcript isoforms. 
+### Other tools for differential expression
+There are a few other tools that are useful for differential expression analysis - these include the likes of edgeR, baySeq, NOISeq, SAMSeq, limma, EBSeq, and Cuffdiff. Many of these tools use different distributions and statistical models to perform their analyses, and are thus useful for different purposes. For example, NOISeq and SAMseq use a non-parametric model, while edgeR, DESeq, and baySEQ use a negative binomial distribution [[5]](https://doi.org/10.1093/bib/bbt086).
+
+Specifically, we're going to take a quick look at Cuffdiff and how it's different from DESeq2. Cuffdiff is part of the popular Cufflinks package [[4]](https://doi.org/10.1038/nprot.2012.016).
+
+While both can be used to perform differential expression analysis, they do have different methodologies, which makes them suitable for different types of experiments. DESeq2 primarily conducts gene-level analysis, while Cuffdiff specializes in transcript-level analysis [[5]](https://doi.org/10.1093/bib/bbt086). The capability of Cuffdiff to perform transcript-level analysis is attributed to its integration with the Cufflinks package, which first aligns the reads into transcripts, facilitating detailed investigation at the transcript level. The key difference between gene-level and transcript-level analysis lies in the level of granularity. Gene-level analysis provides an overview of the entire gene's expression, while transcript-level analysis splits gene expression into all types of transcript isoforms.
 
 For example, to perform alternative splicing analysis, Cuffdiff would be the appropriate tool to use since each RNA isoform corresponds to a unique combination of exons, and you want to know if specific isoforms are upregulated or downregulated. On the other hand, DESeq2 wouldn't be the appropriate tool here since all the RNA isoforms would be considered as the same gene, hiding the information on the specific isoform expressions.
+
+Additionally, unlike DESeq2, cuffdiff is written in C++ which can help afford it extra computation speed since it compiles down to native code.
 
 ## Works Cited
 1. **DESeq2 - Bioconductor** https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 2. Love, M.I., Huber, W. & Anders, S. **Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2**. Genome Biol 15, 550 (2014). https://doi.org/10.1186/s13059-014-0550-8
 3. Haque, A., Engel, J., Teichmann, S.A. et al. **A practical guide to single-cell RNA-sequencing for biomedical research and clinical applications**. Genome Med 9, 75 (2017). https://doi.org/10.1186/s13073-017-0467-4
-4. Seyednasrollah F, Laiho A, Elo LL. Comparison of software packages for detecting differential expression in RNA-seq studies. Brief Bioinform. 2015 Jan;16(1):59-70. doi: 10.1093/bib/bbt086. Epub 2013 Dec 2. PMID: 24300110; PMCID: PMC4293378.
-5. Trapnell C, Roberts A, Goff L, Pertea G, Kim D, Kelley DR, Pimentel H, Salzberg SL, Rinn JL, Pachter L. Differential gene and transcript expression analysis of RNA-seq experiments with TopHat and Cufflinks. Nat Protoc. 2012 Mar 1;7(3):562-78. doi: 10.1038/nprot.2012.016. Erratum in: Nat Protoc. 2014 Oct;9(10):2513. PMID: 22383036; PMCID: PMC3334321.
-
+4. Trapnell, C., Roberts, A., Goff, L., Pertea, G., Kim, D., Kelley, D. R., Pimentel, H., Salzberg, S. L., Rinn, J. L., & Pachter, L. (2012). **Differential gene and transcript expression analysis of RNA-seq experiments with TopHat and Cufflinks**. Nature protocols, 7(3), 562–578. https://doi.org/10.1038/nprot.2012.016
+5. Seyednasrollah, F., Laiho, A., & Elo, L. L. (2015). **Comparison of software packages for detecting differential expression in RNA-seq studies**. Briefings in bioinformatics, 16(1), 59–70. https://doi.org/10.1093/bib/bbt086
